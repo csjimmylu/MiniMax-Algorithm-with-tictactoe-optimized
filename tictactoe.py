@@ -1,5 +1,6 @@
-import random
 from minimax_utility_class import generate_cells
+from minimax_utility_class import dispUboard
+from MiniMax_Algorithm import minimax_algorithm
 
 # [[0, 1, 2],
 #  [3, 4, 5],
@@ -16,11 +17,11 @@ def checkWin(board, sign):
     return False
 
 def checkTie(board):
-    filled = 9
+    filled = 0
     for i in range(len(board)):
         for j in range(len(board[i])):
-            if board[i][j] != 'O' or board[i][j] != 'X':
-                filled -= 1
+            if board[i][j] == 'O' or board[i][j] == 'X':
+                filled += 1
     if filled == 9:
         return True
     return False
@@ -65,6 +66,7 @@ def checkVertical(board, sign):
 def dispboard(board):
     print('\n')
     count = 0
+    print('Tictactoe Board:\n')
     for i in range(len(board)):
         for j in range(len(board[i])):
             count += 1
@@ -89,33 +91,56 @@ def checkCompatible(board, move, sign):
         return False
 
 def computerDecision(board):
-    while (checkTie(board) == False) and (checkWin(board, 'O') == False) and (checkWin(board, 'X') == False):
-        dispboard(board)
-        computer_decision = input("\n(The computer's turn) Enter the empty position you want to place your 'O': ")
-        computer_decision = int(computer_decision)
+    while (checkTie(board) == False) and (checkWin(board, 'X') == False):
         uboard = generate_cells(board)
+        dispUboard(uboard)
+        dispboard(board)
+
         # TODO run minimax algorithm here
+        computer_decision = minimax_algorithm(uboard)
+        computer_decision = int(computer_decision)
 
         if checkCompatible(board, computer_decision, 'O') == True:
-            if checkWin(board, 'O') == True:
+            if checkTie(board) == True:
+                dispboard(board)
+                play_again = input("\nThis is a tie game, to play again enter any key, otherwise enter 'q' to quit.\nYour decision: ")
+                if play_again == 'q':
+                    return
+                else:
+                    board = [[0, 1, 2],[3, 4, 5],[6, 7, 8]]
+                    GameInitializer(board)
+
+            elif checkWin(board, 'O') == True:
                 dispboard(board)
                 print("The computer won!")
                 return
-            playerDecision(board)
+            else:
+                playerDecision(board)
         else:
             computerDecision(board)
 
 def playerDecision(board):
-    while (checkTie(board) == False) and (checkWin(board, 'X')) == False and (checkWin(board, 'O') == False):
+    while (checkTie(board) == False) and (checkWin(board, 'O') == False):
         dispboard(board)
         player_decision = input("\n(The player's turn) Enter the empty position you want to place your 'X': ")
         player_decision = int(player_decision)
+
         if checkCompatible(board, player_decision, 'X') == True:
-            if checkWin(board, 'X') == True:
+            if checkTie(board) == True:
+                dispboard(board)
+                play_again = input("\nThis is a tie game, if you want to play again enter 'p', to quit enter any key.\nYour decision: ")
+                if play_again == 'q':
+                    return
+                else:
+                    board = [[0, 1, 2],[3, 4, 5],[6, 7, 8]]
+                    GameInitializer(board)
+
+            elif checkWin(board, 'X') == True:
                 dispboard(board)
                 print("The player won!")
                 return
-            computerDecision(board)
+            else:
+                computerDecision(board)
         else:
             playerDecision(board)
 
@@ -127,4 +152,4 @@ def GameInitializer(board):
         playerDecision(board)
     else:
         print("\nPlease enter 'c' or 'p' and try again.")
-        GameInitializer()
+        GameInitializer(board)
