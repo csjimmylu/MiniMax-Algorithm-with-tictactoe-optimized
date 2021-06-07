@@ -8,6 +8,7 @@ init_board = [[0, 1, 2],
 
 GameInitializer(init_board)
 
+#git remote add origin <the code link on github>
 #git add .
 #git commit -m
 #git push
