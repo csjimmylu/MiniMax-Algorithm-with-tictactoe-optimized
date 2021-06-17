@@ -1,4 +1,3 @@
-'''
 import random
 import copy as cp
 # NOTE use cp.deepcopy() so the temp variable isn't linked with the other
@@ -341,4 +340,3 @@ init_board = [[0, 1, 2],
               [6, 7, 8]]
 
 GameInitializer(init_board)
-'''
