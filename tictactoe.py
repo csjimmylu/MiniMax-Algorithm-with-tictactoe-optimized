@@ -2,11 +2,6 @@ from minimax_utility_class import generate_cells
 from minimax_utility_class import dispUboard
 from MiniMax_Algorithm import minimax_algorithm
 
-# [[0, 1, 2],
-#  [3, 4, 5],
-#  [6, 7, 8]]
-
-
 def checkWin(board, sign):
     if checkHorizontal(board, sign) == True:
         return True
