@@ -328,9 +328,10 @@ def minimax_algorithm(ub): # should return a pos, such as 4, not index[1,1]
         if options[i][0] == optimal[0]:
             redundant_optimal.append(options[i][1])
 
-    redundant_optimal.append(optimal[1])
-    randnum = random.randint(0,len(redundant_optimal)-1)
-    return redundant_optimal[randnum]
+#     redundant_optimal.append(optimal[1])
+#     randnum = random.randint(0,len(redundant_optimal)-1)
+#     return redundant_optimal[randnum]
+    return redundant_optimal[0]
 
 
 # NOTE play game here
